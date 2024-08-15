@@ -8,6 +8,7 @@ User={{ nifi_registry_user }}
 Group={{ nifi_registry_group }}
 ExecStart={{ nifi_registry_config_dirs.home }}/bin/nifi-registry.sh start
 ExecStop={{ nifi_registry_config_dirs.home }}/bin/nifi-registry.sh stop
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
