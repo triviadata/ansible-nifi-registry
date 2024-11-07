@@ -58,3 +58,7 @@ providers:
 
 # Specify registry aliases
 registry_aliases: {}
+
+# Specify restart option
+# Acceptable values: no, always, on-success, on-failure, on-abnormal, on-abort, on-watchdog
+nifi_registry_systemd_restart: "no"
