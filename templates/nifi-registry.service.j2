@@ -8,7 +8,7 @@ User={{ nifi_registry_user }}
 Group={{ nifi_registry_group }}
 ExecStart={{ nifi_registry_config_dirs.home }}/bin/nifi-registry.sh start
 ExecStop={{ nifi_registry_config_dirs.home }}/bin/nifi-registry.sh stop
-Restart={{ nifi_systemd_restart if nifi_systemd_restart in ['always', 'on-success', 'on-failure', 'on-abnormal', 'on-abort', 'on-watchdog'] else 'no' }}
+Restart={{ nifi_registry_systemd_restart if nifi_registry_systemd_restart in ['always', 'on-success', 'on-failure', 'on-abnormal', 'on-abort', 'on-watchdog'] else 'no' }}
 
 [Install]
 WantedBy=multi-user.target
