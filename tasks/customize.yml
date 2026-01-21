@@ -34,7 +34,7 @@
     - name: Uncomment block in identity-providers.xml
       ansible.builtin.replace:
         path: "{{ nifi_registry_config_dirs.home }}/conf/identity-providers.xml"
-        regexp: "^.*To enable the {{ identity_providers['/identityProviders/provider/identifier'] }}.*$"
+        regexp: "(?m)^.*To enable the {{ identity_providers['/identityProviders/provider/identifier'] }}.*$"
         replace: ""
     - name: Update properties in identity-providers.xml
       community.general.xml:
@@ -43,22 +43,12 @@
         value: "{{ item.value }}"
       with_dict: "{{ identity_providers }}"
 
-
-- name: Update authorizers.xml
-  when: authorizers_identifiers | length
-  block:
-    - name: Uncomment block in authorizers.xml
-      ansible.builtin.replace:
-        path: "{{ nifi_registry_config_dirs.home }}/conf/authorizers.xml"
-        regexp: "^.*To enable the {{ item }}.*$"
-        replace: ""
-      with_items: "{{ authorizers_identifiers }}"
-    - name: Update properties in authorizers.xml
-      community.general.xml:
-        path: "{{ nifi_registry_config_dirs.home }}/conf/authorizers.xml"
-        xpath: "{{ item.key }}"
-        value: "{{ item.value }}"
-      with_dict: "{{ authorizers }}"
+- name: Update properties in authorizers.xml
+  community.general.xml:
+    path: "{{ nifi_registry_config_dirs.home }}/conf/authorizers.xml"
+    xpath: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_dict: "{{ authorizers }}"
 
 - name: Update providers.xml
   community.general.xml:
